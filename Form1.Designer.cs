@@ -29,18 +29,19 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.label_ip = new System.Windows.Forms.ToolStripStatusLabel();
             this.label_status = new System.Windows.Forms.ToolStripStatusLabel();
             this.counts_label = new System.Windows.Forms.ToolStripStatusLabel();
             this.upDateTimer = new System.Windows.Forms.Timer(this.components);
-            this.mapPic = new System.Windows.Forms.PictureBox();
             this.panel_Picture = new System.Windows.Forms.Panel();
             this.dronePic = new System.Windows.Forms.PictureBox();
+            this.mapPic = new System.Windows.Forms.PictureBox();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mapPic)).BeginInit();
             this.panel_Picture.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dronePic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mapPic)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -80,19 +81,6 @@
             this.upDateTimer.Interval = 50;
             this.upDateTimer.Tick += new System.EventHandler(this.upDateTimer_Tick);
             // 
-            // mapPic
-            // 
-            this.mapPic.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mapPic.Location = new System.Drawing.Point(0, 0);
-            this.mapPic.Name = "mapPic";
-            this.mapPic.Size = new System.Drawing.Size(1243, 889);
-            this.mapPic.TabIndex = 1;
-            this.mapPic.TabStop = false;
-            this.mapPic.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
-            this.mapPic.MouseEnter += new System.EventHandler(this.pictureBox1_MouseEnter);
-            this.mapPic.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
-            this.mapPic.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
-            // 
             // panel_Picture
             // 
             this.panel_Picture.BackColor = System.Drawing.Color.White;
@@ -107,13 +95,26 @@
             // dronePic
             // 
             this.dronePic.BackColor = System.Drawing.Color.Transparent;
-            this.dronePic.Image = global::DroneStation.Properties.Resources.drone;
-            this.dronePic.Location = new System.Drawing.Point(599, 409);
+            this.dronePic.Image = ((System.Drawing.Image)(resources.GetObject("dronePic.Image")));
+            this.dronePic.Location = new System.Drawing.Point(554, 426);
             this.dronePic.Name = "dronePic";
-            this.dronePic.Size = new System.Drawing.Size(21, 24);
+            this.dronePic.Size = new System.Drawing.Size(31, 31);
             this.dronePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.dronePic.TabIndex = 2;
             this.dronePic.TabStop = false;
+            // 
+            // mapPic
+            // 
+            this.mapPic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapPic.Location = new System.Drawing.Point(0, 0);
+            this.mapPic.Name = "mapPic";
+            this.mapPic.Size = new System.Drawing.Size(1243, 889);
+            this.mapPic.TabIndex = 1;
+            this.mapPic.TabStop = false;
+            this.mapPic.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
+            this.mapPic.MouseEnter += new System.EventHandler(this.pictureBox1_MouseEnter);
+            this.mapPic.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            this.mapPic.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
             // Form1
             // 
@@ -124,13 +125,14 @@
             this.Controls.Add(this.statusStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RMAP-Win";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mapPic)).EndInit();
             this.panel_Picture.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dronePic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mapPic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

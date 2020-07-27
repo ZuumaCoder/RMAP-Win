@@ -56,3 +56,32 @@ G:\DroneStation\DroneStation - 副本 (4) - 副本\obj\Debug\DroneStation.csproj
 G:\DroneStation\DroneStation - 副本 (4) - 副本\obj\Debug\DroneStation.csproj.CopyComplete
 G:\DroneStation\DroneStation - 副本 (4) - 副本\obj\Debug\DroneStation.exe
 G:\DroneStation\DroneStation - 副本 (4) - 副本\obj\Debug\DroneStation.pdb
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\dll\x86\OpenCvSharpExtern.dll
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\dll\x86\opencv_ffmpeg400.dll
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\dll\x64\OpenCvSharpExtern.dll
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\dll\x64\opencv_ffmpeg400_64.dll
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\DroneStation.exe.config
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\DroneStation.exe
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\DroneStation.pdb
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\Newtonsoft.Json.dll
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\OpenCvSharp.Blob.dll
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\OpenCvSharp.dll
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\OpenCvSharp.Extensions.dll
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\OpenCvSharp.UserInterface.dll
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\Newtonsoft.Json.xml
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\OpenCvSharp.pdb
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\OpenCvSharp.xml
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\OpenCvSharp.Blob.pdb
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\OpenCvSharp.Blob.xml
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\OpenCvSharp.Extensions.pdb
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\OpenCvSharp.Extensions.xml
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\OpenCvSharp.UserInterface.pdb
+G:\DroneStation\git_rego\RMAP-Win\bin\Debug\OpenCvSharp.UserInterface.xml
+G:\DroneStation\git_rego\RMAP-Win\obj\Debug\DroneStation.csprojAssemblyReference.cache
+G:\DroneStation\git_rego\RMAP-Win\obj\Debug\DroneStation.Form1.resources
+G:\DroneStation\git_rego\RMAP-Win\obj\Debug\DroneStation.Properties.Resources.resources
+G:\DroneStation\git_rego\RMAP-Win\obj\Debug\DroneStation.csproj.GenerateResource.cache
+G:\DroneStation\git_rego\RMAP-Win\obj\Debug\DroneStation.csproj.CoreCompileInputs.cache
+G:\DroneStation\git_rego\RMAP-Win\obj\Debug\DroneStation.csproj.CopyComplete
+G:\DroneStation\git_rego\RMAP-Win\obj\Debug\DroneStation.exe
+G:\DroneStation\git_rego\RMAP-Win\obj\Debug\DroneStation.pdb

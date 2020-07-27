@@ -36,7 +36,7 @@ namespace DroneStation
         private int mapHeight=0;
         private int mapWidth=0;
         private int mapSize=0;
-        private float mapX, mapY,odomX,odomY;
+        private float mapX, mapY,odomX,odomY,rt_Yaw;
         private bool isNewMap = false;
         private Bitmap mapBackImg;
         private int originDroneWidth = 0;
@@ -66,13 +66,12 @@ namespace DroneStation
             public float MapY { get; set; }
             public float OdomX { get; set; }
             public float OdomY { get; set; }
-            //public int DroneInMapX { get; set; }
-            //public int DroneInMapY { get; set; }
+            public float RT_Yaw { get; set; }
 
             public System.Drawing.Point DroneInMap { get; set; }
             public System.Drawing.Point MapInPanel { get; set; }
             public System.Drawing.Point DroneInPanel { get; set; }
-            public MapInfo(int Width,int Height, float MapX, float MapY, float OdomX, float OdomY)
+            public MapInfo(int Width,int Height, float MapX, float MapY, float OdomX, float OdomY,float RT_Yaw)
             {
                 this.Height = Height;
                 this.Width = Width;
@@ -80,6 +79,7 @@ namespace DroneStation
                 this.MapY = MapY;
                 this.OdomX = OdomX;
                 this.OdomY = OdomY;
+                this.RT_Yaw = RT_Yaw;
             }
         }
 
@@ -88,7 +88,6 @@ namespace DroneStation
         {
             InitializeComponent();
             Control.CheckForIllegalCrossThreadCalls = false;
-            
             dronePic.Parent = mapPic;
             zeroX = panel_Picture.Width / 2;
             zeroY = panel_Picture.Height / 2;
@@ -96,30 +95,15 @@ namespace DroneStation
             originY = zeroY;
             mapPic.SizeMode = PictureBoxSizeMode.Zoom;
             mapPic.Dock = DockStyle.None;
-            //odomPic.SizeMode = PictureBoxSizeMode.Zoom;
-            //odomPic.Dock = DockStyle.None;
-
-            //pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            //pictureBox1.Dock = DockStyle.None;
-            //pictureBox1.Parent = odomPic;
-
             this.mapPic.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseWheel);
-            this.mapPic.Location = new System.Drawing.Point(originX + imgTranslateX, originY + imgTranslateY);
+            this.mapPic.Location = new System.Drawing.Point(0, 0);
             originDroneWidth = dronePic.Width;
             originDroneHeight = dronePic.Height;
+            RotateImage(dronePic, Properties.Resources.drone, 45+90);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //mapBackImg = new Bitmap(mapPic.Width, mapPic.Height);
-            //for (int i = 0; i < mapPic.Height; i++)
-            //{
-            //    for (int j = 0; j < mapPic.Width; j++)
-            //    {
-            //        Color newcolor = Color.FromArgb(255, 255, 255);
-            //        mapBackImg.SetPixel(j, i, newcolor);
-            //    }
-            //}
             label_ip.Text = localIP= getLocalIP();
             upDateTimer.Enabled = true;
             upDateTimer.Start();
@@ -216,8 +200,8 @@ namespace DroneStation
                     length = sokClient.Receive(arrMsgRec); // 接收数据，并返回数据的长度；
                     if (length > 0)
                     {
-                        byte[] cmdBytes=new byte[100];
-                        Array.Copy(arrMsgRec, 0, cmdBytes, 0, 100);
+                        byte[] cmdBytes=new byte[150];
+                        Array.Copy(arrMsgRec, 0, cmdBytes, 0, 150);
                         string cmd = ASCIIEncoding.ASCII.GetString(cmdBytes);
                         if (cmd.Substring(0, 11) == "[{\"Height\":")
                         {
@@ -228,6 +212,7 @@ namespace DroneStation
                             mapY = jobInfoList[0].MapY;
                             odomX = jobInfoList[0].OdomX;
                             odomY = jobInfoList[0].OdomY;
+                            rt_Yaw= jobInfoList[0].RT_Yaw;
                             mapSize = mapHeight * mapWidth;
                             mapDataSets = new int[mapSize];
                             continue;
@@ -353,6 +338,8 @@ namespace DroneStation
                                                                        );
             dronePic.Width = (int)(originDroneWidth * mapImgZoomX);
             dronePic.Height = (int)(originDroneHeight * mapImgZoomY);
+            RotateImage(dronePic, Properties.Resources.drone, mapInfoList[mapInfoList.Count - 1].RT_Yaw+90);
+            //dronePic.Image.Dispose();
             /************************************************************************************************************************/
             /*绘制轨迹*/
             if (mapInfoList.Count > 1)
@@ -368,17 +355,43 @@ namespace DroneStation
                     System.Drawing.Point startPoint = new System.Drawing.Point((int)(startX), (int)(startY));
                     System.Drawing.Point endPoint = new System.Drawing.Point((int)(endX), (int)(endY));
 
-
-                    if (i == mapInfoList.Count - 2)
-                    {
-                        endX = endX * 1 / 1;
-                    }
-                    DrawLineInPicture(mapImg, startPoint, endPoint, Color.Red, 2, DashStyle.DashDotDot);
+                    DrawLineInPicture(mapImg, startPoint, endPoint, Color.Blue, 2, DashStyle.DashDotDot);
                 }
             }
             /************************************************************************************************************************/
 
         }
+
+        #region 图片旋转
+        public static Bitmap RotateImage(Image image, float angle)
+        {
+            if (image == null)
+                throw new ArgumentNullException("image");
+            float dx = image.Width / 2.0f;
+            float dy = image.Height / 2.0f;
+
+            Bitmap rotatedBmp = new Bitmap(image.Width, image.Height);
+            rotatedBmp.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+            Graphics g = Graphics.FromImage(rotatedBmp);
+            g.TranslateTransform(dx, dy);
+            g.RotateTransform(angle);
+            g.TranslateTransform(-dx, -dy);
+            g.DrawImage(image, new PointF(0, 0));
+            return rotatedBmp;
+        }
+
+        private void RotateImage(PictureBox pb, Image img, float angle)
+        {
+            if (img == null || pb.Image == null)
+                return;
+            Image oldImage = pb.Image;
+            pb.Image = RotateImage(img, angle);
+            if (oldImage != null)
+            {
+                oldImage.Dispose();
+            }
+        }
+        #endregion
 
         /// <summary>
         /// 在图片上画线
@@ -464,11 +477,6 @@ namespace DroneStation
 
         void pictureBox1_MouseWheel(object sender, MouseEventArgs e)
         {
-            //float scale = 1;
-            //if (mapPic.Height > 0)
-            //{
-            //    scale = (float)mapPic.Width / (float)mapPic.Height;
-            //}
             mapImgZoomX += ((e.Delta) * 0.001f);
             mapImgZoomY += e.Delta * 0.001f;
         }
@@ -481,9 +489,8 @@ namespace DroneStation
             if (isNewMap)
             {
                 imgData = new byte[mapDataSets.Length];
-                MapInfo mapinfo = new MapInfo(mapWidth, mapHeight, mapX, mapY, odomX, odomY);
+                MapInfo mapinfo = new MapInfo(mapWidth, mapHeight, mapX, mapY, odomX, odomY,rt_Yaw);
                 mapInfoList.Add(mapinfo);
-
                 for (int i = 0; i < mapDataSets.Length; i++)
                 {
                     if (mapDataSets[i] == 255)

@@ -104,6 +104,12 @@
   <ItemGroup>
     <None Include="Resources\drone.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\drone1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="drone.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
