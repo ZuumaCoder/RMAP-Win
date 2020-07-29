@@ -37,8 +37,7 @@ namespace DroneStation
         private int mapWidth=0;
         private int mapSize=0;
         private float mapX, mapY,odomX,odomY,rt_Yaw;
-        private bool isNewMap = false;
-        private Bitmap mapBackImg;
+        private bool isNewMap = false,isNewOdom=false;
         private int originDroneWidth = 0;
         private int originDroneHeight = 0;
 
@@ -215,6 +214,7 @@ namespace DroneStation
                             rt_Yaw= jobInfoList[0].RT_Yaw;
                             mapSize = mapHeight * mapWidth;
                             mapDataSets = new int[mapSize];
+                            isNewOdom = true;
                             continue;
                         }
                         else
@@ -336,6 +336,7 @@ namespace DroneStation
                                                                         (int)(1 * (mapInfoList[mapInfoList.Count - 1].OdomX / 0.05f) - ((int)(1 * mapInfoList[mapInfoList.Count - 1].MapX / 0.05f))),
                                                                         (int)(1 * (mapInfoList[mapInfoList.Count - 1].OdomY / 0.05f) - ((int)(1 * mapInfoList[mapInfoList.Count - 1].MapY / 0.05f)))
                                                                        );
+
             dronePic.Width = (int)(originDroneWidth * mapImgZoomX);
             dronePic.Height = (int)(originDroneHeight * mapImgZoomY);
             RotateImage(dronePic, Properties.Resources.drone, mapInfoList[mapInfoList.Count - 1].RT_Yaw+90);
@@ -346,6 +347,10 @@ namespace DroneStation
             {
                 for (int i = 0; i < mapInfoList.Count - 1; i++)
                 {
+                    if(mapInfoList[i].DroneInMap.X==0 || mapInfoList[i + 1].DroneInMap.X==0)
+                    {
+                        continue;
+                    }
                     int startX = (int)(mapInfoList[i].DroneInMap.X) + (int)((mapInfoList[i].MapInPanel.X - mapInfoList[mapInfoList.Count - 1].MapInPanel.X));
                     int startY = (int)(mapInfoList[i].DroneInMap.Y) + (int)((mapInfoList[i].MapInPanel.Y - mapInfoList[mapInfoList.Count - 1].MapInPanel.Y));
 
@@ -485,7 +490,6 @@ namespace DroneStation
 
         private void upDateTimer_Tick(object sender, EventArgs e)
         {
-
             if (isNewMap)
             {
                 imgData = new byte[mapDataSets.Length];
@@ -505,10 +509,26 @@ namespace DroneStation
                 }
                 counts_label.Text = "接收计数：" + framesCount++;
                 isNewMap = false;
-            }                
-            if (imgData != null)
-                   DisplayGrayImage(imgData, mapInfoList[mapInfoList.Count - 1].Width, mapInfoList[mapInfoList.Count - 1].Height, mapPic);
-            //label1.Text = odomPic.Height.ToString()+":::"+mapPic.Height.ToString();
+            }
+            if (isNewOdom && !isNewMap && mapInfoList.Count>1 && imgData != null)
+            {
+                MapInfo mapinfo = new MapInfo(mapInfoList[mapInfoList.Count-1].Width, mapInfoList[mapInfoList.Count - 1].Height, 
+                                                                             mapInfoList[mapInfoList.Count - 1].MapX, mapInfoList[mapInfoList.Count - 1].MapY, 
+                                                                                    odomX, odomY, 
+                                                                                         rt_Yaw);
+                mapInfoList.Add(mapinfo);
+                isNewOdom = false;
+            }
+            
+            if (imgData != null) { 
+                    DisplayGrayImage(imgData, mapInfoList[mapInfoList.Count - 1].Width, mapInfoList[mapInfoList.Count - 1].Height, mapPic);
+            }
+            //if (mapInfoList.Count>1 && mapInfoList[mapInfoList.Count - 1].DroneInMap.X == 0)
+            //{
+            //    int i = 0;
+            //    i += 1;
+            //}
+
         }
         #endregion 
     }

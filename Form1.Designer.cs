@@ -98,7 +98,7 @@
             this.dronePic.Image = ((System.Drawing.Image)(resources.GetObject("dronePic.Image")));
             this.dronePic.Location = new System.Drawing.Point(554, 426);
             this.dronePic.Name = "dronePic";
-            this.dronePic.Size = new System.Drawing.Size(31, 31);
+            this.dronePic.Size = new System.Drawing.Size(50, 50);
             this.dronePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.dronePic.TabIndex = 2;
             this.dronePic.TabStop = false;
